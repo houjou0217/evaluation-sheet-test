@@ -11,6 +11,7 @@ services:
       MYSQL_DATABASE: wordpress_db
       MYSQL_USER: user
       MYSQL_PASSWORD: user_pass_Ck6uTvrQ
+    command: --max_allowed_packet=256M --innodb_log_file_size=256M --wait_timeout=600 --net_read_timeout=600 --net_write_timeout=600
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -46,3 +47,6 @@ services:
       - "8888:80"
     environment:
       MYSQL_ROOT_PASSWORD: root_pass_fB3uWvTS
+      MEMORY_LIMIT: 1024M
+      UPLOAD_LIMIT: 128M
+      MAX_EXECUTION_TIME: 1800
