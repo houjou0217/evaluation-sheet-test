@@ -1,0 +1,7 @@
+# MySQL関連を無視
+db/mysql/
+
+# キャッシュや一時ファイルを無視
+*.log
+*.cache
+*.tmp
