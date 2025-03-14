@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   db:
     platform: linux/amd64
@@ -17,6 +19,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - app-net
 
   wordpress:
     image: wordpress:latest
@@ -35,6 +39,11 @@ services:
       WORDPRESS_DB_NAME: wordpress_db
       WORDPRESS_DB_USER: user
       WORDPRESS_DB_PASSWORD: user_pass_Ck6uTvrQ
+    build:
+      context: "./"
+      dockerfile: "Dockerfile"
+    networks:
+      - app-net
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin:latest
@@ -50,3 +59,21 @@ services:
       MEMORY_LIMIT: 1024M
       UPLOAD_LIMIT: 128M
       MAX_EXECUTION_TIME: 1800
+    networks:
+      - app-net
+
+  flask:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: flask
+    ports:
+      - "5001:5001"
+    volumes:
+      - ./flask_app:/app  # ホストとコンテナを同期
+    networks:
+      - app-net
+
+networks:
+  app-net:
+    driver: bridge
