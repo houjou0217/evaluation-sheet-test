@@ -1,5 +1,6 @@
 # MySQL関連を無視
-db/mysql/
+db/mysql/#innodb_redo/
+
 
 # キャッシュや一時ファイルを無視
 *.log
